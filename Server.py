@@ -89,8 +89,6 @@ def ausführen(x):
     return print(x)
 
 
-
-
 server.register_function(ausführen)
 server.register_function(createBoard, 'createBoard')
 server.register_function(Board, 'Board')
