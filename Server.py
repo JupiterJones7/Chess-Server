@@ -3,28 +3,28 @@ from xmlrpc.server import SimpleXMLRPCServer
 
 
 
-
 # Informationen
 argumentList = sys.argv
 hostAddress = '0.0.0.0'
-port = '12345'
+port = '1111'
 server = SimpleXMLRPCServer((hostAddress, int(port)))
 
-
-#BlackKing = '\u2654'
-#BlackQueen = '\u2655'
-#BlackRook = '\u2656'
-#BlackBishop = '\u2657'
-#BlackKnight = '\u2658'
-#BlackPawn = '\u2659'
-#WhiteKing = '\u265A'
-#WhiteQueen = '\u265B'
-#WhiteRook = '\u265C'
-#WhiteBishop = '\u265D'
-#WhiteKnight = '\u265E'
-#WhitePawn = '\u265F'
+# BlackKing = '\u2654'
+# BlackQueen = '\u2655'
+# BlackRook = '\u2656'
+# BlackBishop = '\u2657'
+# BlackKnight = '\u2658'
+# BlackPawn = '\u2659'
+# WhiteKing = '\u265A'
+# WhiteQueen = '\u265B'
+# WhiteRook = '\u265C'
+# WhiteBishop = '\u265D'
+# WhiteKnight = '\u265E'
+# WhitePawn = '\u265F'
 
 GRID_SIZE = 8
+
+
 def createBoard():
     row = []
     for x in range(GRID_SIZE):
@@ -73,7 +73,6 @@ def createBoard():
 
 
 def Board(row):
-
     print("  A", " B", " C", " D", " E", " F", " G", " H")
 
     for x in range(GRID_SIZE):
@@ -86,13 +85,13 @@ def Board(row):
         if x < GRID_SIZE:
             print()
 
-
-Board(createBoard())
-
-def drawBoard(q):
-    return print(q)
+def ausführen(x):
+    return print(x)
 
 
 
-server.register_function(drawBoard)
+
+server.register_function(ausführen)
+server.register_function(createBoard, 'createBoard')
+server.register_function(Board, 'Board')
 server.serve_forever()
