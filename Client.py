@@ -1,8 +1,6 @@
 import xmlrpc.client
 import sys
 
-
-
 argumentsList = sys.argv
 hostAddress = '127.0.0.1'
 hostPort = '1111'

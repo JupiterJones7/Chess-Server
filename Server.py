@@ -1,8 +1,6 @@
 import sys
 from xmlrpc.server import SimpleXMLRPCServer
 
-
-
 # Informationen
 argumentList = sys.argv
 hostAddress = '0.0.0.0'
@@ -84,6 +82,7 @@ def Board(row):
 
         if x < GRID_SIZE:
             print()
+
 
 def ausführen(x):
     return print(x)

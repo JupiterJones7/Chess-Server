@@ -14,6 +14,8 @@ Figuren = {
 }
 
 GRID_SIZE = 8
+matrix = []
+chessMate = False
 
 
 # Machen des Boards
@@ -28,6 +30,7 @@ def createBoard():
                 row[x].append("\u265F")
             elif x == 0 and y == 0:
                 row[x].append("\u2656")
+            #                row[x][y] = "\u2656"
             elif x == 0 and y == 1:
                 row[x].append("\u2658")
             elif x == 0 and y == 2:
@@ -57,10 +60,10 @@ def createBoard():
             elif x == 7 and y == 6:
                 row[x].append("\u265E")
             elif x == 7 and y == 7:
-                row[x].append("\u265C")
+                row[x].append('\u265C')
 
             else:
-                row[x].append("\u2658")
+                row[x].append('\u2003')
     return row
 
 
@@ -80,19 +83,21 @@ def Board(row):
 
 
 # Spielregeln der Figuren
-def Rook(opy, opx, npy, npx):
-    if opy == npy and opx == npx:
+def Rook():
+    if chessMate:
         return True
     else:
         return False
 
+
 def Knight(opy, opx, npy, npx):
-    if opy -2 or opy +2 and opx -1 or opx +1 == npy and npx:
+    if opy - 2 or opy + 2 and opx - 1 or opx + 1 == npy and npx:
         return True
-    elif opx -2 or opx +2 and opy -1 or opy +1 == npy and npx:
+    elif opx - 2 or opx + 2 and opy - 1 or opy + 1 == npy and npx:
         return True
     else:
         return False
+
 
 def Bishop(opy, opx, npy, npx):
     numberToCalculate = opy - npy
@@ -122,26 +127,40 @@ def Bishop(opy, opx, npy, npx):
 
 
 # Updaten des Boards
-def updateBoard():
+def moveFigure(matrix):
     row = []
     figurart = input("Figur: ")
-    opy = int(input("y Achse von der Figur eingeben: "))
     opx = int(input("x Achse von der Figur eingeben: "))
-    npy = int(input("y Achse der neuen Position: "))
-    npx = int(input("x Achse der neuen Positon: "))
-    npy -= 1
+    opy = int(input("y Achse von der Figur eingeben: "))
+    npx = int(input("x Achse der neuen Position: "))
+    npy = int(input("y Achse der neuen Positon: "))
     npx -= 1
+    npy -= 1
 
-    for x in range(GRID_SIZE):
-        row.append([])
-        for y in range(GRID_SIZE):
-            if x == npy and y == npx:
-                    row[x].append(str(Figuren[figurart]))
+    allowed = False
 
-            else:
-                    row[x].append("\u2658")
+    if figurart == "Rook":
+        allowed = Knight(opy, opx, npy, npx)
 
-    return row
+    elif figurart =="Pawn":
+        allowed
+    if not allowed:
+        print("Your move is not valid!")
+    else:
+        targetFieldFigure = matrix[npx][npy]
+        originFieldFigure = matrix[opx][opy]
+        matrix[npx][npy] = originFieldFigure
+        matrix[opx][opy] = "\u2003"
+        if targetFieldFigure != " ":
+            print(targetFieldFigure)
+    return matrix
 
 
-Board(updateBoard())
+matrix = createBoard()
+Board(matrix)
+
+while not chessMate:
+    matrix = moveFigure(matrix)
+    Board(matrix)
+
+# Board(updateBoard())
