@@ -1,3 +1,5 @@
+import chess
+board = chess.Board()
 Figuren = {
     "Black_King": '\u2654',
     "Black_Queen": '\u2655',
@@ -15,7 +17,7 @@ Figuren = {
 
 GRID_SIZE = 8
 matrix = []
-chessMate = False
+
 
 
 # Machen des Boards
@@ -69,7 +71,7 @@ def createBoard():
 
 # Zeichnen des Boards
 def Board(row):
-    print(" 1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ")
+    print(" A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ")
 
     for x in range(GRID_SIZE):
         print("{} ".format(x + 1), end="")
@@ -83,11 +85,10 @@ def Board(row):
 
 
 # Spielregeln der Figuren
-def Rook():
-    if chessMate:
-        return True
-    else:
-        return False
+""""
+def Rook(opy, opx, npy, npx):
+       return True
+
 
 
 def Knight(opy, opx, npy, npx):
@@ -125,42 +126,35 @@ def Bishop(opy, opx, npy, npx):
     else:
         return False
 
-
-# Updaten des Boards
-def moveFigure(matrix):
-    row = []
-    figurart = input("Figur: ")
-    opx = int(input("x Achse von der Figur eingeben: "))
-    opy = int(input("y Achse von der Figur eingeben: "))
-    npx = int(input("x Achse der neuen Position: "))
-    npy = int(input("y Achse der neuen Positon: "))
-    npx -= 1
-    npy -= 1
-
-    allowed = False
-
-    if figurart == "Rook":
-        allowed = Knight(opy, opx, npy, npx)
-
-    elif figurart =="Pawn":
-        allowed
-    if not allowed:
-        print("Your move is not valid!")
+def Pawn(opy, opx, npy, npx):
+    if opy == npy + 1:
+        return True
     else:
-        targetFieldFigure = matrix[npx][npy]
-        originFieldFigure = matrix[opx][opy]
-        matrix[npx][npy] = originFieldFigure
-        matrix[opx][opy] = "\u2003"
-        if targetFieldFigure != " ":
-            print(targetFieldFigure)
-    return matrix
+        return False
+"""""
+#Updaten des Boards
+def updateBoard():
+    print(board.legal_moves)
+    input1 = input("What move would you like to make: ")
 
+    board.push_san(input1)
+    newBoard = str(board)
+    newBoard = newBoard.replace("r", '\u2656' + " |")
+    newBoard = newBoard.replace("n", '\u2658' + " |")
+    newBoard = newBoard.replace("b", '\u2657' + " |")
+    newBoard = newBoard.replace("q", '\u2655' + " |")
+    newBoard = newBoard.replace("k", '\u2654' + " |")
+    newBoard = newBoard.replace("p", '\u2659' + " |")
+    newBoard = newBoard.replace("R", '\u265C' + " |")
+    newBoard = newBoard.replace("N", '\u265E' + " |")
+    newBoard = newBoard.replace("B", '\u265D' + " |")
+    newBoard = newBoard.replace("Q", '\u265B' + " |")
+    newBoard = newBoard.replace("K", '\u265A' + " |")
+    newBoard = newBoard.replace("P", '\u2659' + " |")
+    newBoard = newBoard.replace(".", '\u2003' + " |")
 
-matrix = createBoard()
-Board(matrix)
+    print(newBoard)
 
-while not chessMate:
-    matrix = moveFigure(matrix)
-    Board(matrix)
-
-Board(updateBoard())
+Board(createBoard())
+while board.is_checkmate() == False:
+    updateBoard()

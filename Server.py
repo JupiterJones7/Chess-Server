@@ -4,91 +4,49 @@ from xmlrpc.server import SimpleXMLRPCServer
 # Informationen
 argumentList = sys.argv
 hostAddress = '0.0.0.0'
-port = '1111'
+port = '12345'
 server = SimpleXMLRPCServer((hostAddress, int(port)))
 
-# BlackKing = '\u2654'
-# BlackQueen = '\u2655'
-# BlackRook = '\u2656'
-# BlackBishop = '\u2657'
-# BlackKnight = '\u2658'
-# BlackPawn = '\u2659'
-# WhiteKing = '\u265A'
-# WhiteQueen = '\u265B'
-# WhiteRook = '\u265C'
-# WhiteBishop = '\u265D'
-# WhiteKnight = '\u265E'
-# WhitePawn = '\u265F'
-
-GRID_SIZE = 8
-
-
-def createBoard():
-    row = []
-    for x in range(GRID_SIZE):
-        row.append([])
-        for y in range(GRID_SIZE):
-            if x == 1:
-                row[x].append("\u2659")
-            elif x == 6:
-                row[x].append("\u265F")
-            elif x == 0 and y == 0:
-                row[x].append("\u2656")
-            elif x == 0 and y == 1:
-                row[x].append("\u2658")
-            elif x == 0 and y == 2:
-                row[x].append("\u2657")
-            elif x == 0 and y == 3:
-                row[x].append("\u2655")
-            elif x == 0 and y == 4:
-                row[x].append("\u2654")
-            elif x == 0 and y == 5:
-                row[x].append("\u2657")
-            elif x == 0 and y == 6:
-                row[x].append("\u2658")
-            elif x == 0 and y == 7:
-                row[x].append("\u2656")
-            elif x == 7 and y == 0:
-                row[x].append("\u265C")
-            elif x == 7 and y == 1:
-                row[x].append("\u265E")
-            elif x == 7 and y == 2:
-                row[x].append("\u265D")
-            elif x == 7 and y == 3:
-                row[x].append("\u265B")
-            elif x == 7 and y == 4:
-                row[x].append("\u265A")
-            elif x == 7 and y == 5:
-                row[x].append("\u265D")
-            elif x == 7 and y == 6:
-                row[x].append("\u265E")
-            elif x == 7 and y == 7:
-                row[x].append("\u265C")
-
-            else:
-                row[x].append("\u2658")
-    return row
+import chess
+board = chess.Board()
+Figuren = {
+    "Black_King": '\u2654',
+    "Black_Queen": '\u2655',
+    "Black_Rook": '\u2656',
+    "Black_Bishop": '\u2657',
+    "Black_Knight": '\u2658',
+    "Black_Pawn": '\u2659',
+    "White_King": '\u265A',
+    "White_Queen": '\u265B',
+    "White_Rook": '\u265C',
+    "White_Bishop": '\u265D',
+    "White_Knight": '\u265E',
+    "WhitePawn": '\u265F'
+}
 
 
-def Board(row):
-    print("  A", " B", " C", " D", " E", " F", " G", " H")
-
-    for x in range(GRID_SIZE):
-        print("{} ".format(x + 1), end="")
-        for y in range(GRID_SIZE):
-            print("{}".format(row[x][y]), end="")
-            if y < GRID_SIZE:
-                print("|", end="")
-
-        if x < GRID_SIZE:
-            print()
 
 
-def ausführen(x):
-    return print(x)
+def updateBoard(input1):
+    print(board.legal_moves)
 
 
-server.register_function(ausführen)
-server.register_function(createBoard, 'createBoard')
-server.register_function(Board, 'Board')
+    board.push_san(input1)
+    newBoard = str(board)
+    newBoard = newBoard.replace("r", '\u2656' + " |")
+    newBoard = newBoard.replace("n", '\u2658' + " |")
+    newBoard = newBoard.replace("b", '\u2657' + " |")
+    newBoard = newBoard.replace("q", '\u2655' + " |")
+    newBoard = newBoard.replace("k", '\u2654' + " |")
+    newBoard = newBoard.replace("p", '\u2659' + " |")
+    newBoard = newBoard.replace("R", '\u265C' + " |")
+    newBoard = newBoard.replace("N", '\u265E' + " |")
+    newBoard = newBoard.replace("B", '\u265D' + " |")
+    newBoard = newBoard.replace("Q", '\u265B' + " |")
+    newBoard = newBoard.replace("K", '\u265A' + " |")
+    newBoard = newBoard.replace("P", '\u2659' + " |")
+    newBoard = newBoard.replace(".", '\u2003' + " |")
+
+    print(newBoard)
+server.register_function(updateBoard)
 server.serve_forever()
