@@ -163,4 +163,4 @@ while not chessMate:
     matrix = moveFigure(matrix)
     Board(matrix)
 
-# Board(updateBoard())
+Board(updateBoard())
