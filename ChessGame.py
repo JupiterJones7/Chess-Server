@@ -78,7 +78,10 @@ def RookTest(opy, opx, npy, npx):
 
 #Checkt, ob Zug mit Rook Valid ist
 def Rook(opy, opx, npy, npx):
-    return True
+    if opy == npy or opx == npx:
+        return True
+    else:
+        return False
 #Checkt, ob Zug mit Knight Valid ist
 def Knight(opy, opx, npy, npx):
     if opy - 2 or opy + 2 and opx - 1 or opx + 1 == npy and npx:
@@ -201,4 +204,3 @@ matrix = createBoard()
 while not chessMate:
     matrix = moveFigure(matrix)
     Board(matrix)
-Board(moveFigure())

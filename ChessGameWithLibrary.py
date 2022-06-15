@@ -1,13 +1,4 @@
-import sys
-from xmlrpc.server import SimpleXMLRPCServer
 import chess
-
-# Informationen
-argumentList = sys.argv
-hostAddress = '0.0.0.0'
-port = '12345'
-server = SimpleXMLRPCServer((hostAddress, int(port)))
-
 board = chess.Board()
 Figuren = {
     "Black_King": '\u2654',
@@ -25,16 +16,9 @@ Figuren = {
 }
 
 
-def main(input1):
-    while not board.is_checkmate():
-        return updateBoard(input1)
 
-    else:
-        print("Game is finished")
-
-
-def updateBoard(input1):
-    board.push_san(input1)
+#Updaten des Boars
+def updateBoard():
     newBoard = str(board)
     newBoard = newBoard.replace("r", '\u2656' + " |")
     newBoard = newBoard.replace("n", '\u2658' + " |")
@@ -49,12 +33,12 @@ def updateBoard(input1):
     newBoard = newBoard.replace("K", '\u265A' + " |")
     newBoard = newBoard.replace("P", '\u2659' + " |")
     newBoard = newBoard.replace(".", '\u2003' + " |")
+    print(newBoard)
+    print(board.legal_moves)
+    input1 = input("What move would you like to make: ")
+    board.push_san(input1)
 
-    return newBoard
 
 
-
-
-server.register_function(main)
-server.register_function(updateBoard)
-server.serve_forever()
+while board.is_checkmate() == False:
+    updateBoard()
