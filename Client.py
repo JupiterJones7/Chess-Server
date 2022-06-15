@@ -10,9 +10,9 @@ URI = "http://" + hostAddress + ":" + hostPort
 print(URI)
 
 proxy = xmlrpc.client.ServerProxy(URI)
-
-input1 = input("Where do you wanna place your figure: ")
-print('{}'.format(proxy.main(input1)))
+while 1 < 3:
+    input1 = input("Where do you wanna place your figure: ")
+    print('{}'.format(proxy.main(input1)))
 
 
 

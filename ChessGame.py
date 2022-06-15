@@ -76,22 +76,21 @@ def createBoard():
 def RookTest(opy, opx, npy, npx):
     return True
 
-#Checkt, ob Zug mit Rook Valid ist
+
 def Rook(opy, opx, npy, npx):
     if opy == npy or opx == npx:
         return True
     else:
         return False
-#Checkt, ob Zug mit Knight Valid ist
+
 def Knight(opy, opx, npy, npx):
-    if opy - 2 or opy + 2 and opx - 1 or opx + 1 == npy and npx:
+    if (opy - 2 or opy + 2) and (opx - 1 or opx + 1 == npy) and npx:
         return True
-    elif opx - 2 or opx + 2 and opy - 1 or opy + 1 == npy and npx:
+    elif (opx - 2 or opx + 2) and (opy - 1 or opy + 1 == npy) and npx:
         return True
     else:
         return False
 
-#Checkt, ob Zug mit Bishop Valid ist
 def Bishop(opy, opx, npy, npx):
     numberToCalculate = opy - npy
     if numberToCalculate < 0:
@@ -118,21 +117,18 @@ def Bishop(opy, opx, npy, npx):
     else:
         return False
 
-#Checkt, ob Zug mit Pawn Valid ist
 def Pawn(opy, opx, npy, npx):
     if opy == npy + 1 or opy == npy - 1:
         return True
     else:
         return False
 
-#Checkt, ob Zug mit Queen Valid ist
 def Queen(opy, opx, npy, npx):
     if Bishop(opy, opx, npy, npx) or Rook(opy, opx, npy, npx) == True:
         return True
     else:
         return False
 
-#Checkt, ob Zug mit King Valid ist
 def King(opy, opx, npy, npx):
     if opy == npy - 1 or opy == npy + 1 or opx == npx - 1 or opx == npx + 1:
         return True
